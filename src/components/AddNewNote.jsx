@@ -3,6 +3,8 @@ import { useState } from "react";
 const AddNewNote = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newNote = {
@@ -14,7 +16,7 @@ const AddNewNote = () => {
     };
     setTitle("");
     setDescription("");
-    console.log(newNote);
+    setNotes((prevNote) => [...prevNote, newNote]);
   };
   return (
     <div className="add-new-note">
