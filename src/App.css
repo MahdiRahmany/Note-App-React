@@ -88,7 +88,7 @@
 .note-item__header .actions {
   display: flex;
   gap: 1.5rem;
-  align-items: center;
+  align-items: start;
 }
 
 .note-item__header .trash {
@@ -100,4 +100,5 @@
 
 .note-item__footer {
   color: var(--text-300);
+  text-align: left;
 }
