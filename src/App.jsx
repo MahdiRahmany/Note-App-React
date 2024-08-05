@@ -1,12 +1,15 @@
 import "./App.css";
+import AddNewNote from "./components/AddNewNote";
 
 function App() {
   return (
     <div className="container">
-      <div className="note-header"></div>
+      <div className="note-header">note header</div>
       <div className="note-app">
-        <div className="add-new-note"></div>
-        <div className="note-container"></div>
+
+          <AddNewNote />
+
+        <div className="note-container">note edit</div>
       </div>
     </div>
   );
