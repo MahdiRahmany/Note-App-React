@@ -46,3 +46,4 @@ function NoteItem({ note, onDelete, onComplete }) {
     </div>
   );
 }
+    
