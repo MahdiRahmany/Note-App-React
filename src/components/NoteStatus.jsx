@@ -1,9 +1,14 @@
+import Message from "./Message";
+
 function NoteStatus({ notes }) {
+  
   const allNotes = notes.length;
-  const completedNotes = notes.filter((e) => e.completed).length;
+  const completedNotes = notes.filter((n) => n.completed).length;
   const uncompletedNotes = allNotes - completedNotes;
 
-if(!allNotes) return <h2>Not any notes to show</h2>
+  if (!allNotes) return <Message>
+    <span>Not any notes to show</span>
+  </Message>;
 
   return (
     <ul className="note-status">
