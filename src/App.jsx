@@ -1,4 +1,4 @@
-import { useReducer, useState, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import "./App.css";
 import NoteHeader from "./components/NoteHeader";
 import AddNewNote from "./components/AddNewNote";
@@ -29,21 +29,22 @@ function notesReducer(notes, action) {
 }
 
 function App() {
-  const [notes, dispatch] = useReducer(notesReducer, []);
-
-  const [sortBy, setSortBy] = useState("latest");
-
-  useEffect(() => {
+  const [notes, dispatch] = useReducer(notesReducer, [], () => {
     const storedNotes = localStorage.getItem("notes");
     if (storedNotes) {
-      dispatch({ type: "load", payload: JSON.parse(storedNotes) });
+    
+      const parsedNotes = JSON.parse(storedNotes);
+      return parsedNotes.map((note) => ({ ...note, completed: false }));
     }
-  }, []);
+    return [];
+  });
 
   useEffect(() => {
-    if (notes.length > 0) {
-      localStorage.setItem("notes", JSON.stringify(notes));
-    }
+    const notesToStore = notes.map((note) => {
+      const { completed, ...rest } = note;
+      return rest;
+    });
+    localStorage.setItem("notes", JSON.stringify(notesToStore));
   }, [notes]);
 
   const handleAddNote = (newNote) => {
@@ -61,14 +62,13 @@ function App() {
 
   return (
     <div className="container">
-      <NoteHeader notes={notes} onSort={(e) => setSortBy(e.target.value)} />
+      <NoteHeader notes={notes} />
       <div className="note-app">
         <AddNewNote onAddNote={handleAddNote} />
         <div className="note-container">
           <NoteStatus notes={notes} />
           <NoteList
             notes={notes}
-            sortBy={sortBy}
             onDelete={handleDeleteNote}
             onComplete={handleCompleteNote}
           />
